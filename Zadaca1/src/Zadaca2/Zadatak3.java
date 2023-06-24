@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -37,7 +38,7 @@ class DisplayPanel extends JPanel {
 	JTextField imeTF, prezimeTF;
 
 	public DisplayPanel() {
-		
+
 		JPanel btnPanel = new JPanel();
 		JPanel tfPanel = new JPanel();
 		unesi = new JButton("Unesi ime!");
@@ -46,18 +47,23 @@ class DisplayPanel extends JPanel {
 		unesi.addActionListener(e -> {
 			if (model.size() < 5) {
 				index++;
-				String s = Integer.toString(index)+ ". "+ imeTF.getText() + " " + prezimeTF.getText();
+				String s = Integer.toString(index) + ". " + imeTF.getText() + " " + prezimeTF.getText();
 				model.addElement(s);
 				imeTF.setText("");
 				prezimeTF.setText("");
+			} else {
+				JOptionPane.showMessageDialog(this, "vise nema mjesta", "poruka", JOptionPane.INFORMATION_MESSAGE);
+
 			}
-			//jPane
 		});
 
 		obrisi.addActionListener(e -> {
-			index = 0;
-			model.clear();
-			//jpane are u sure
+			if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this,"da li ste sigurni","poruka",JOptionPane.YES_NO_OPTION)){
+				index = 0;
+				model.clear();
+			}
+			
+			// jpane are u sure
 		});
 
 		btnPanel.add(unesi);
